@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppComponent } from '../../app.component';
 
 @Component({
   selector: 'app-validate',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ValidateComponent implements OnInit {
 
-  constructor() { }
+  constructor(private appComponent: AppComponent ) {
+    this.appComponent.callNextStatus('Validar Token');
+  }
 
   ngOnInit() {
   }

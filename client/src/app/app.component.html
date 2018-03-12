@@ -21,7 +21,7 @@
         <button mat-icon-button (click)="sidenav.open()">
             <mat-icon>menu</mat-icon>
         </button>
-        <span>Início</span>
+        <span fxFlexOffset="20px">{{titlePage}}</span>
     </mat-toolbar>
     <mat-progress-bar *ngIf="loading" color="warn" mode="indeterminate"></mat-progress-bar>
     <mat-card id="content">

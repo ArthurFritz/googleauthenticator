@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { RouterState, Router } from '@angular/router';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
+  public titlePage = '';
+  private statusPage = new Subject<string>();
+  constructor(private _router: Router) {
+    this.statusPage.subscribe(suc => {
+      this.titlePage = suc;
+    });
+    this.callNextStatus('Início');
+  }
+
+  public callNextStatus(titulo: string) {
+    const projTitle = 'Projeto - ' + titulo;
+    this.statusPage.next(projTitle);
+  }
 }
