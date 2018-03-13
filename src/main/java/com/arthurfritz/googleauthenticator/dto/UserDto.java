@@ -10,13 +10,20 @@ public class UserDto {
 	@NotBlank
 	@Email
 	private String email;
+	
+	@NotBlank
+	private String nome;
 
 	public Long getIdentifier() {
 		return identifier;
 	}
 
 	public String getEmail() {
-		return email;
+		return email.trim();
+	}
+	
+	public String getNome(){
+		return nome;
 	}
 
 }

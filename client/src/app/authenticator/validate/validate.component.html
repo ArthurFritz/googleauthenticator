@@ -1,3 +1,31 @@
-<p>
-  validate works!
-</p>
+<div fxLayout="column">
+  <p fxFlex="100" fxLayout="row" fxLayoutAlign="space-between">
+    <span>
+      <b>Usuário - </b> {{infoUser.nome}}
+    </span>
+    <span>
+      <b>E-mail - </b> {{infoUser.email}} <br/>
+    </span>
+  </p>
+  <div>
+    <b>Hash - </b> {{infoUser.hash ? infoUser.hash : 'Nenhum hash disponível'}}
+  </div>
+  <br/>
+
+  <form [formGroup]="formulario" fxLayout="column">
+    <mat-form-field>
+      <input matInput placeholder="Token" formControlName="otp">
+      <mat-error *ngIf="formulario.get('otp').hasError('required')">
+        Campo token é <strong>requerido!</strong>
+      </mat-error>
+      <mat-error *ngIf="formulario.get('otp').hasError('minlength') || formulario.get('otp').hasError('maxlength')">
+        O tamanho do campo é de <strong> 6 digitos</strong>
+      </mat-error>
+    </mat-form-field>
+    <br/>
+    <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between">
+        <button mat-raised-button color="primary"  [disabled]="!formulario.valid" (click)="validar()">Validar</button>
+        <button mat-raised-button color="warn" routerLink="/authenticator/list">Cancelar</button>
+    </div>
+  </form>
+</div>

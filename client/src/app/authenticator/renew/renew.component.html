@@ -1,3 +1,20 @@
-<p>
-  renew works!
-</p>
+<div fxLayout="column">
+  <p fxFlex="100" fxLayout="row" fxLayoutAlign="space-between">
+    <span>
+      <b>Usuário - </b> {{infoUser.nome}}
+    </span>
+    <span>
+      <b>E-mail - </b> {{infoUser.email}} <br/>
+    </span>
+  </p>
+  <div>
+    <b>Hash - </b> {{infoUser.hash ? infoUser.hash : 'Nenhum hash disponível'}}
+  </div>
+
+  <br/>
+  <p fxFlex="100" fxLayout="row" fxLayoutAlign="space-between">
+      <button mat-raised-button color="primary" (click)="gerarHash()">Gerar Hash</button>
+      <button mat-raised-button color="warn" routerLink="/authenticator/list">Cancelar</button>
+      <button mat-raised-button color="" (click)="validarOtp()">Validar OTP</button>
+  </p>
+</div>

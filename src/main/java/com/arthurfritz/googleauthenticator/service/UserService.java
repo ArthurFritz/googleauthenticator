@@ -14,7 +14,7 @@ public interface UserService {
 	
 	Optional<User> getUser(Long identifier);
 	
-	User updateUser(@Valid UserDto user);
+	User updateUser(@Valid UserDto user, Long identifier);
 	
 	User createUser(@Valid UserDto user);
 		

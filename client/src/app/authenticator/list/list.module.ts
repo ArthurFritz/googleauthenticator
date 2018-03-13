@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { ListRoutingModule } from './list-routing.module';
 import {ListComponent} from './list.component';
-import { MatTableModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { MatTableModule, MatIconModule, MatButtonModule, MatTooltipModule } from '@angular/material';
+import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { ListService } from "./list.service";
 
 @NgModule({
   imports: [
@@ -11,8 +13,11 @@ import { MatTableModule, MatIconModule, MatButtonModule } from '@angular/materia
     ListRoutingModule,
     MatTableModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    HttpClientModule,
+    MatTooltipModule
   ],
-  declarations: [ListComponent]
+  declarations: [ListComponent],
+  providers:[HttpClient, ListService]
 })
 export class ListModule { }

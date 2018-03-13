@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../../app.component';
+import { ListService } from "./list.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-list',
@@ -7,36 +9,41 @@ import { AppComponent } from '../../app.component';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-
   displayedColumns = ['identifier', 'nome', 'email', 'actions'];
-  dataSource = [
-    {identifier: 1, email: 'Hydrogen', nome: 'José'},
-    {identifier: 2, email: 'Helium', nome: 'José'},
-    {identifier: 3, email: 'Lithium', nome: 'José'},
-    {identifier: 4, email: 'Beryllium', nome: 'José'},
-    {identifier: 5, email: 'Boron', nome: 'José'},
-    {identifier: 6, email: 'Carbon', nome: 'José'},
-    {identifier: 7, email: 'Nitrogen', nome: 'José'},
-    {identifier: 8, email: 'Oxygen', nome: 'José'},
-    {identifier: 9, email: 'Fluorine', nome: 'José'},
-    {identifier: 10, email: 'Neon', nome: 'José'},
-    {identifier: 11, email: 'Sodium', nome: 'José'},
-    {identifier: 12, email: 'Magnesium', nome: 'José'},
-    {identifier: 13, email: 'Aluminum', nome: 'José'},
-    {identifier: 14, email: 'Silicon', nome: 'José'},
-    {identifier: 15, email: 'Phosphorus', nome: 'José'},
-    {identifier: 16, email: 'Sulfur', nome: 'José'},
-    {identifier: 17, email: 'Chlorine', nome: 'José'},
-    {identifier: 18, email: 'Argon', nome: 'José'},
-    {identifier: 19, email: 'Potassium', nome: 'José'},
-    {identifier: 20, email: 'Calcium', nome: 'José'},
-  ];
+  dataSource = [];
 
-  constructor(private appComponent: AppComponent ) {
+  noResults$ = true;
+
+  constructor(private appComponent: AppComponent, private _listUser: ListService, private _router:Router ) {
     this.appComponent.callNextStatus('Lista de usuários');
+    this.listUsers();
   }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  private listUsers(){
+    this._listUser.listUser().subscribe(suc=>{
+      this.dataSource = suc;
+      this.noResults$ = this.dataSource.length === 0 ;
+    });
+  }
+
+  editar(id){
+    this._router.navigate(['/authenticator/edit', id]);
+  }
+
+  newHash(id){
+    this._router.navigate(['/authenticator/renew', id]);
+  }
+
+  validateOTP(id){
+    this._router.navigate(['/authenticator/validate', id]);
+  }
+
+  excluir(id){
+    this._listUser.removerUser(id).subscribe(suc=>{
+      this.listUsers();
+    })
   }
 
 }

@@ -7,4 +7,5 @@ import com.arthurfritz.googleauthenticator.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
+	User findFirstByEmail(String email);
 }

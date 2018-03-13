@@ -13,14 +13,27 @@
         <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.identifier}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef align="center"> Ações </mat-header-cell>
+        <mat-cell *matCellDef="let element" align="center"> 
+          <button mat-icon-button matTooltip="QrCode">
+              <mat-icon class="md-24" (click)="newHash(element.identifier)" aria-label="QrCode">screen_lock_portrait</mat-icon>
+          </button>
+            <button mat-icon-button matTooltip="Validar OTP">
+              <mat-icon class="md-24" (click)="validateOTP(element.identifier)" aria-label="Validar OTP">vpn_key</mat-icon>
+          </button>
+          <button mat-icon-button color="primary"  matTooltip="Editar">
+            <mat-icon class="md-24"  (click)="editar(element.identifier)" aria-label="Editar">edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" matTooltip="Remover">
+              <mat-icon class="md-24" (click)="excluir(element.identifier)" aria-label="Remover">delete</mat-icon>
+          </button>
+        </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
   <div *ngIf="noResults$" class="noResult">Nenhum resultado</div>
-  <button mat-fab color="primary">
-    <mat-icon class="mat-24" routerLink="/authenticator/new" aria-label="Adicionar">add</mat-icon>
+  <button mat-fab color="primary" matTooltip="Adicionar">
+    <mat-icon class="mat-24" routerLink="/authenticator/new"  aria-label="Adicionar">add</mat-icon>
   </button> 
 </div>

@@ -34,22 +34,31 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User updateUser(UserDto user) {
-		Optional<User> usuario = userRepository.findById(user.getIdentifier());
+	public User updateUser(UserDto user, Long identifier) {
+		Optional<User> usuario = userRepository.findById(identifier);
 		if(usuario.isPresent()){
 			User userUpdate = usuario.get();
-			userUpdate.setEmail(user.getEmail());
+			setInfosUser(user, userUpdate);
 			userRepository.save(userUpdate);
 			return userUpdate;
 		}
-		throw new ConstraintViolationException("Nï¿½o foi possï¿½vel localizar o usuï¿½rio", null);
+		throw new ConstraintViolationException("Não foi possível localizar o usuário", null);
 	}
 
 	@Override
 	public User createUser(UserDto user) {
+		User existUser = userRepository.findFirstByEmail(user.getEmail());
+		if(existUser != null){
+			throw new ConstraintViolationException("Já existe um usuário com este e-mail", null);	
+		}
 		User usuario = new User();
-		usuario.setEmail(user.getEmail());
+		setInfosUser(user, usuario);
 		return userRepository.save(usuario);
+	}
+
+	private void setInfosUser(UserDto user, User usuario) {
+		usuario.setEmail(user.getEmail());
+		usuario.setNome(user.getNome());
 	}
 
 }
