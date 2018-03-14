@@ -14,6 +14,8 @@ export class ValidateComponent implements OnInit {
   formulario:FormGroup;
   private idUser=null;
   infoUser = {};
+  validando = null;
+  otpValido = false;
 
   constructor(private appComponent: AppComponent, private _fb:FormBuilder, private _validateService:ValidateService, private _router:Router , private _activateRoute: ActivatedRoute ) {
     this.appComponent.callNextStatus('Validar Token');
@@ -36,5 +38,22 @@ export class ValidateComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+
+  validar(){
+    if(this.formulario.valid){
+        this.validando = true;
+        this.otpValido = false;
+        const dados = {identifier:this.idUser, otp:this.formulario.value.otp}
+        this._validateService.validate(dados).toPromise().then(suc=>{
+          this.validoClear(true);
+        }).catch(err => {this.validoClear(false)})
+    }
+  }
+
+  private validoClear(status){
+    this.otpValido = status;
+    this.validando = false
+  }
 
 }

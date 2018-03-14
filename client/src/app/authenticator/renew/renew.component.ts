@@ -11,7 +11,8 @@ import { RenewService } from "./renew.service";
 export class RenewComponent implements OnInit {
 
   private idUser;
-  public infoUser = {};
+  public infoUser = {nome:null,email:null,hashGoogle:null};
+  public generateHash = false;
 
   constructor(private appComponent: AppComponent, 
               private _activateRoute:ActivatedRoute,
@@ -41,4 +42,24 @@ export class RenewComponent implements OnInit {
     this._router.navigate(['/authenticator/validate', this.idUser])
   }
 
+  gerarHash() {
+    this.infoUser.hashGoogle = null;
+    this.generateHash = true;
+    this._renewService.renewHash(this.idUser).toPromise().then(suc=>{
+      this.infoUser.hashGoogle = suc;
+      this.generateHash = false;
+    }).catch(err=>{this.generateHash = false;})
+  }
+
+  getQrCodeGoogle(){
+    if(this.infoUser.hashGoogle){
+      const nome = 'Artigo';
+      const user = this.infoUser.email;
+      const hashKey = this.infoUser.hashGoogle;
+      const qrCode = 'otpauth://totp/'+ encodeURI(nome + " (" + user+")") + "?secret=" + encodeURI(hashKey) + "&issuer=" + encodeURI(nome);
+      return 'https://chart.googleapis.com/chart?cht=qr&choe=UTF-8&chs=400x400&chl=' + qrCode;
+    }
+  }
+
 }
+

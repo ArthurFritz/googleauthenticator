@@ -6,7 +6,7 @@ import { RenewComponent } from './renew.component';
 import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { RenewService } from "./renew.service";
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { MatButtonModule } from "@angular/material";
+import { MatButtonModule, MatProgressSpinnerModule } from "@angular/material";
 
 @NgModule({
   imports: [
@@ -14,7 +14,8 @@ import { MatButtonModule } from "@angular/material";
     RenewRoutingModule,
     HttpClientModule,
     FlexLayoutModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressSpinnerModule
   ],
   declarations: [RenewComponent],
   providers:[HttpClient, RenewService]

@@ -8,10 +8,9 @@
     </span>
   </p>
   <div>
-    <b>Hash - </b> {{infoUser.hash ? infoUser.hash : 'Nenhum hash disponível'}}
+    <b>Hash - </b> {{infoUser.hashGoogle ? infoUser.hashGoogle : 'Nenhum hash disponível'}}
   </div>
   <br/>
-
   <form [formGroup]="formulario" fxLayout="column">
     <mat-form-field>
       <input matInput placeholder="Token" formControlName="otp">
@@ -28,4 +27,7 @@
         <button mat-raised-button color="warn" routerLink="/authenticator/list">Cancelar</button>
     </div>
   </form>
+  <br/>
+  <mat-toolbar *ngIf="validando != null && !validando && otpValido" color="primary">Token válidado com sucesso</mat-toolbar>
+  <mat-toolbar *ngIf="validando != null && !validando && !otpValido" color="warn">Token inválido</mat-toolbar>
 </div>

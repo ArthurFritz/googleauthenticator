@@ -8,10 +8,12 @@
     </span>
   </p>
   <div>
-    <b>Hash - </b> {{infoUser.hash ? infoUser.hash : 'Nenhum hash disponível'}}
+    <b>Hash - </b> {{infoUser.hashGoogle ? infoUser.hashGoogle : 'Nenhum hash disponível'}}
   </div>
-
-  <br/>
+  <div align="center">
+    <img *ngIf="!generateHash && infoUser.hashGoogle" [src]="getQrCodeGoogle()" width="400" height="400"/>
+    <mat-spinner *ngIf="generateHash"></mat-spinner>
+  </div>
   <p fxFlex="100" fxLayout="row" fxLayoutAlign="space-between">
       <button mat-raised-button color="primary" (click)="gerarHash()">Gerar Hash</button>
       <button mat-raised-button color="warn" routerLink="/authenticator/list">Cancelar</button>

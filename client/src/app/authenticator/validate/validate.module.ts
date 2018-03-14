@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ValidateRoutingModule } from './validate-routing.module';
 import { ValidateComponent } from './validate.component';
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { MatButtonModule, MatInputModule } from "@angular/material";
+import { MatButtonModule, MatInputModule, MatToolbarModule } from "@angular/material";
 import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { ValidateService } from "./validate.service";
 import { FormBuilder, FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -18,7 +18,8 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from "@angular/forms";
     FlexLayoutModule,
     MatButtonModule,
     HttpClientModule,
-    MatInputModule
+    MatInputModule,
+    MatToolbarModule
   ],
   declarations: [ValidateComponent],
   providers: [HttpClient, ValidateService, FormBuilder]
