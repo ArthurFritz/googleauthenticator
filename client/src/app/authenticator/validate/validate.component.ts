@@ -13,7 +13,7 @@ export class ValidateComponent implements OnInit {
   
   formulario:FormGroup;
   private idUser=null;
-  infoUser = {};
+  infoUser:any;
   validando = null;
   otpValido = false;
 
